@@ -51,6 +51,7 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Missile\Missile.cs" />
+     <Compile Include="Assets\Scripts\Build\BuildManager.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>D:/Unity/MissileSilo/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
