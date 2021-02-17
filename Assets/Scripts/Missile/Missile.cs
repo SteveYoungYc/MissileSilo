@@ -6,19 +6,19 @@ using UnityEngine.Serialization;
 
 public class Missile : MonoBehaviour
 {
-    public Vector3 startPos;
-    public Vector3 endPos;
-    private Vector3 center;
-
+    
     private List<Vector3> pointsList;
 
     public int state;
 
+    private float circleTime;
+    private bool circleFlag;
+
     private void Awake()
     {
         //transform.position = new Vector3(0, 0, 0);
-        startPos = transform.position;
-        endPos = new Vector3(10, 0, 0);
+        //startPos = transform.position;
+        //endPos = new Vector3(10, 0, 0);
         pointsList = new List<Vector3>
         {
             new Vector3(0, 0, 0), new Vector3(0, 10, 0), new Vector3(10, 10, 0), new Vector3(10, 0, 0)
@@ -26,6 +26,7 @@ public class Missile : MonoBehaviour
 
         transform.position = pointsList[0];
         state = 0;
+        circleFlag = true;
     }
 
     // Start is called before the first frame update
@@ -55,10 +56,15 @@ public class Missile : MonoBehaviour
 
     private void CircleOrbit(Vector3 start, Vector3 end)
     {
-        Vector3 center = (start + end) / 2 + new Vector3(0, -0.2f, 0);
-        transform.position = Vector3.Slerp(start - center, end - center, Time.time / 10) + center;//(start + end) / 2
+        Vector3 center = (start + end) / 2;
+        float radius = Vector3.Distance(center, start);
+        float fai = Mathf.Atan((center.z - start.z) / (center.x - start.x));
+        float x = center.x - radius * Mathf.Cos((Time.time - circleTime) / 2) * Mathf.Cos(fai);
+        float y = center.y + radius * Mathf.Sin((Time.time - circleTime) / 2);
+        float z = center.z - radius * Mathf.Cos((Time.time - circleTime) / 2) * Mathf.Sin(fai);
+        print(x);
+        transform.position = new Vector3(x, y, z);
         transform.LookAt(center, Vector3.right);
-        print(transform.position);
     }
 
     private void LinearOrbit(Vector3 start, Vector3 end)
@@ -72,11 +78,13 @@ public class Missile : MonoBehaviour
         {
             state = 0;
         }
-        if (Math.Abs(transform.position.y - pointsList[1].y) < 0.01) //Vector3.Distance(transform.position, pointsList[1]) < 0.01
+        if (Vector3.Distance(transform.position, pointsList[1]) < 0.01) //Math.Abs(transform.position.y - pointsList[1].y) < 0.01
         //transform.position.y - pointsList[1].y > 0.1 && transform.position.y - pointsList[1].y < 0.2
         {
             state = 1;
-            print(transform.position);
+            if(circleFlag)
+                circleTime = Time.time;
+            circleFlag = false;
         }
         if (Vector3.Distance(transform.position, pointsList[2]) < 0.03)
         {
