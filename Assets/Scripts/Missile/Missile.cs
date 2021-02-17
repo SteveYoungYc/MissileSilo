@@ -16,7 +16,7 @@ public class Missile : MonoBehaviour
 
     private void Awake()
     {
-        transform.position = new Vector3(0, 0, 0);
+        //transform.position = new Vector3(0, 0, 0);
         startPos = transform.position;
         endPos = new Vector3(10, 0, 0);
         pointsList = new List<Vector3>
@@ -24,6 +24,7 @@ public class Missile : MonoBehaviour
             new Vector3(0, 0, 0), new Vector3(0, 10, 0), new Vector3(10, 10, 0), new Vector3(10, 0, 0)
         };
 
+        transform.position = pointsList[0];
         state = 0;
     }
 
@@ -57,7 +58,7 @@ public class Missile : MonoBehaviour
         Vector3 center = (start + end) / 2 + new Vector3(0, -0.2f, 0);
         transform.position = Vector3.Slerp(start - center, end - center, Time.time / 10) + center;//(start + end) / 2
         transform.LookAt(center, Vector3.right);
-        //print(transform.position);
+        print(transform.position);
     }
 
     private void LinearOrbit(Vector3 start, Vector3 end)
