@@ -11,7 +11,6 @@ public class BuildManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //turretPrefab = Resources.Load<GameObject>("Prefabs/Turret");
         mainCamera = Camera.main;
     }
 

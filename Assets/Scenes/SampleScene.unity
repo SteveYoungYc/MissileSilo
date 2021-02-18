@@ -98,7 +98,8 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 164339c521efd7a45b202d461a4fb879, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 164339c521efd7a45b202d461a4fb879,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -152,7 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68b5699ea45d3ad48a565949eafae4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretPrefab: {fileID: 7955659868414999656, guid: 37b8cf14b4e122b47bd0cd27f27350d5, type: 3}
+  turretPrefab: {fileID: 3253987281729858697, guid: 2dfdc3d60adf736428693b5f2ffa27bf,
+    type: 3}
 --- !u!4 &547464815
 Transform:
   m_ObjectHideFlags: 0

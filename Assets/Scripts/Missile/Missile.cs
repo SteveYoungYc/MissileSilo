@@ -15,7 +15,7 @@ public class Missile : MonoBehaviour
     private bool circleFlag;
     private Vector3 worldUp;
 
-    private float verticalHeight;
+    private float verticalHeight = 10f;
     private float speed;
     private readonly float maxSpeed = 2;
 
@@ -34,7 +34,7 @@ public class Missile : MonoBehaviour
     {
         speed = maxSpeed;
         verticalHeight = 10f;
-        SetTarget(new Vector3(0, 0, 0));
+        //SetTarget(new Vector3(0, 0, 0));
     }
 
     // Update is called once per frame
@@ -104,11 +104,13 @@ public class Missile : MonoBehaviour
         }
     }
 
-    void SetTarget(Vector3 targetPos)
+    public void SetTarget(Vector3 targetPos)
     {
         var position = transform.position;
         if (targetPos.y - position.y > verticalHeight)
         {
+            print(targetPos.y);
+            print(position.y);
             Debug.LogError("The target is too high.");
         }
         pointsList = new List<Vector3>
