@@ -17,7 +17,9 @@ public class Missile : MonoBehaviour
 
     private float verticalHeight;
     private float speed;
-    private readonly float maxSpeed = 7;
+    private readonly float maxSpeed = 2;
+
+    public GameObject bigExplodeEffectPrefab;
 
     private void Awake()
     {
@@ -55,14 +57,9 @@ public class Missile : MonoBehaviour
 
     private void CircleOrbit(Vector3 start, Vector3 end)
     {
-        Vector3 center = (start + end) / 2;
+        Vector3 center = (start + end) / 2 + new Vector3(0, -0.2f, 0);
         float radius = Vector3.Distance(center, start);
-        float fai = Mathf.Atan((center.z - start.z) / (center.x - start.x));
-        print(fai / Mathf.PI * 180f);
-        float x = center.x - radius * Mathf.Cos((Time.time - circleTime) * (speed / radius * 8)) * Mathf.Cos(fai);
-        float y = center.y + radius * Mathf.Sin((Time.time - circleTime) * (speed / radius * 8));
-        float z = center.z - radius * Mathf.Cos((Time.time - circleTime) * (speed / radius * 8)) * Mathf.Sin(fai);
-        transform.position = new Vector3(x, y, z);
+        transform.position = Vector3.Slerp(start - center, end - center, (Time.time - circleTime) * (speed / radius * 6)) + center;//(start + end) / 2
         transform.LookAt(center, worldUp);
     }
 
@@ -102,6 +99,7 @@ public class Missile : MonoBehaviour
         if (Vector3.Distance(transform.position, pointsList[3]) < 0.5)
         {
             state = -1;
+            Instantiate(bigExplodeEffectPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
